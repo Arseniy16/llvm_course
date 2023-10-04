@@ -10,11 +10,11 @@ SRCL = sources
 SOURCES = game.c graphics_interface.c main.c 
 SRC := $(addprefix $(SRCL)/, $(SOURCES))
 
-OBJECTS = $(SOURCES:.cpp=.o)
+OBJECTS = $(SOURCES:.c=.o)
 OBJ := $(addprefix $(SRCL)/, $(OBJECTS))
 
 PROG = life
-RM = rm -f -r
+# RM = rm -f -r
 
 $(SRCL)/%.o: $(SRCL)/%.c
 	$(CXX) $(CXXFLAGS) -c -o $@ $<

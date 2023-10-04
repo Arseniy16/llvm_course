@@ -1,8 +1,8 @@
 #ifndef _GAME_H_
 #define _GAME_H_
 
-#include <time.h>
-#include <string.h>
+// #include <time.h>
+// #include <string.h>
 #include "graphics_interface.h"
 
 #define REPEAT_SIZE 1024
