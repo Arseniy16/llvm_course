@@ -27,9 +27,9 @@ depend:
 $(PROG): $(OBJ)
 	$(CXX) $(CXXFLAGS) $(OBJ) -o $(PROG) $(LDFLAGS)
 
-# sfmlWindow: sfmlTest.cpp
-# 	$(CXX) -c sfmlTest.cpp $(CXXFLAGS) -o sfmlTest.o
-# 	$(CXX) sfmlTest.o -o sfml-app $(LDFLAGS)
+sfmlTest: test.c
+	$(CXX) test.c -o sfml-app $(LDFLAGS)
+# 	$(CXX) -c test.c $(CXXFLAGS) -o sfmlTest.o
 
 # clean:
 # 	$(RM) $(OBJ)

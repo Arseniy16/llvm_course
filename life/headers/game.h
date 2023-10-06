@@ -6,7 +6,7 @@
 #include "graphics_interface.h"
 
 #define REPEAT_SIZE 1024
-#define COUNT_INITIAL_CELLS 5
+#define COUNT_INITIAL_CELLS 30000
 
 typedef struct direction
 {   
@@ -24,12 +24,14 @@ typedef struct direction
 extern color_t dead; //green - dead
 extern color_t alive; //red - alive
 
+extern int random_uniform(int n);
+extern int random_new();
+
 extern int drawGame();
 extern void initGame();
 extern int isSame(color_t model, color_t test);
 extern int getAliveNeighbours(dir_t neighbour);
 extern void gameUpdate();
-
 
 
 #endif /* _GAME_H_ */
