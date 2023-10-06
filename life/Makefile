@@ -14,7 +14,7 @@ OBJECTS = $(SOURCES:.c=.o)
 OBJ := $(addprefix $(SRCL)/, $(OBJECTS))
 
 PROG = life
-# RM = rm -f -r
+RM = rm -rf
 
 $(SRCL)/%.o: $(SRCL)/%.c
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
@@ -27,12 +27,12 @@ depend:
 $(PROG): $(OBJ)
 	$(CXX) $(CXXFLAGS) $(OBJ) -o $(PROG) $(LDFLAGS)
 
-sfmlTest: test.c
-	$(CXX) test.c -o sfml-app $(LDFLAGS)
+# sfmlTest: test.c
+# 	$(CXX) test.c -o sfml-app $(LDFLAGS)
 # 	$(CXX) -c test.c $(CXXFLAGS) -o sfmlTest.o
 
-# clean:
-# 	$(RM) $(OBJ)
-# 	$(RM) $(PROG)
+clean:
+	$(RM) $(OBJ)
+	$(RM) $(PROG)
 
 -include .depend
