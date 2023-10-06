@@ -2,7 +2,6 @@
 #include <SFML/Graphics.hpp>
 #include "game.h"
 #include <stdio.h>
-// #include <unistd.h>
 
 unsigned data_prev[SIM_DISPLAY_MEM_ADDR];
 unsigned data_new[SIM_DISPLAY_MEM_ADDR];
