@@ -2,7 +2,7 @@
 
 #### Preresiquites
 
-To launch this program you should install [SFML](!https://www.sfml-dev.org/):
+To launch this program you should install [SFML](https://www.sfml-dev.org/):
 
 _For LINUX:_
 
