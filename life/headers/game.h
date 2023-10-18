@@ -22,11 +22,10 @@ typedef struct direction
 extern color_t dead; //blue - dead
 extern color_t alive; //red - alive
 
-extern void drawGame();
+extern void app();
 extern void initGame();
 extern int isSame(color_t model, color_t test);
 extern int getAliveNeighbours(dir_t neighbour);
 extern void gameUpdate();
-
 
 #endif /* _GAME_H_ */

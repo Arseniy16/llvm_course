@@ -6,11 +6,19 @@
 color_t dead = {0, 0, 255}; //blue - dead
 color_t alive = {255, 0, 0}; //red - alive
 
-void drawGame()
-{
-    gameUpdate();
-    simFlush();
+static unsigned start = 0;
 
+void app()
+{
+    if (!start)
+    {
+        initGame();
+        gameUpdate();
+        start = 1;
+        return;
+    }
+
+    gameUpdate();
     return;
 }
 

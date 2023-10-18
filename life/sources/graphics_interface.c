@@ -87,8 +87,6 @@ void runGame()
     printf("\t-> SIZE_PIXEL = %d\n", SIZE_PIXEL);
 
     initWindow();
-    initGame();
-    window.display();
 
     while (window.isOpen())
     {
@@ -100,7 +98,8 @@ void runGame()
                 window.close();
         }
 
-        drawGame();
+        app();
+        simFlush();
     }
     printf("END GAME\n");
 
