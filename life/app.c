@@ -1,24 +1,22 @@
-#include "graphics_interface.h"
-#include "game.h"
-#include <time.h>
-#include <string.h>
+#include "sim.h"
 
 color_t dead = {0, 0, 255}; //blue - dead
 color_t alive = {255, 0, 0}; //red - alive
 
-static unsigned start = 0;
+static unsigned data_prev[SIM_DISPLAY_MEM_ADDR];
+static unsigned data_new[SIM_DISPLAY_MEM_ADDR];
 
-void app()
+static unsigned *prev_gen = data_prev;
+static unsigned *next_gen = data_new;
+
+/* set pixel for data */
+void simSetPixel(unsigned x, unsigned y, color_t color, unsigned *data)
 {
-    if (!start)
-    {
-        initGame();
-        gameUpdate();
-        start = 1;
-        return;
-    }
+    unsigned pos = (x + y * SIM_X_SIZE) * 3;
+    data[pos] = color.r;
+    data[pos + 1] = color.g;
+    data[pos + 2] = color.b;
 
-    gameUpdate();
     return;
 }
 
@@ -33,12 +31,10 @@ void initGame()
         }
     }
 
-    srand(time(NULL));
-
     for (unsigned i = 0; i < COUNT_INITIAL_CELLS; i++)
     {
-        unsigned coord_x = rand() % (SIM_X_SIZE - 1) + 1;
-        unsigned coord_y = rand() % (SIM_Y_SIZE - 1) + 1;
+        unsigned coord_x = simRand() % (SIM_X_SIZE - 1) + 1;
+        unsigned coord_y = simRand() % (SIM_Y_SIZE - 1) + 1;
         simSetPixel(coord_x, coord_y, alive, prev_gen);
     }
 
@@ -66,7 +62,10 @@ void initGame()
 /* check pixels for similarity */
 int isSame(color_t model, color_t test)
 {
-    return memcmp(&model, &test, sizeof(color_t)) == 0; 
+    if ((model.r == test.r) && (model.g == test.g) && (model.b == test.b))
+        return 1;
+
+    return 0;  
 }
 
 /* get alive neighbours for the particular pixel */
@@ -145,6 +144,46 @@ void gameUpdate()
                     simSetPixel(x, y, dead, next_gen);
             }
         }
+    }
+
+    return;
+}
+
+/* to swap pointers to data arrays */
+void swapData(unsigned **prev, unsigned **next)
+{
+    unsigned *tmp = *prev;
+    *prev = *next;
+    *next = tmp;
+
+    return;
+}
+
+void drawGame()
+{
+    unsigned pos = 0;
+
+    for (unsigned y = 0; y < SIM_Y_SIZE; ++y)
+    {
+        for (unsigned x = 0; x < SIM_X_SIZE; ++x)
+        {
+            pos = (x + y * SIM_X_SIZE) * 3;
+            drawPixel(x, y, {next_gen[pos], next_gen[pos + 1], next_gen[pos + 2]});
+        }
+    }
+    return;
+}
+
+void app()
+{
+    initGame();
+
+    while(1)
+    {
+        gameUpdate();
+        drawGame();
+        simFlush();
+        swapData(&prev_gen, &next_gen);
     }
 
     return;
