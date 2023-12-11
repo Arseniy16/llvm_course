@@ -20,7 +20,7 @@ python3 analyzer.py log.txt
 No: in __sim.h__ some params _(SIM_X_SIZE -> 200, SIM_Y_SIZE -> 150)_ have been changed to decrease count of instructions
 
 
-##### O2:
+#### Instruction statistics (with O2):
 ![One instruction](images/O2/image_1.png)
 ![Two instructions](images/O2/image_2.png)
 ![Three instructions](images/O2/image_3.png)
@@ -28,7 +28,7 @@ No: in __sim.h__ some params _(SIM_X_SIZE -> 200, SIM_Y_SIZE -> 150)_ have been 
 ![Five instructions](images/O2/image_5.png)
 
 
-##### O3:
+#### Instuction statistics (with O3):
 ![One instruction](images/O3/image_1.png)
 ![Two instructions](images/O3/image_2.png)
 ![Three instructions](images/O3/image_3.png)
