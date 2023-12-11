@@ -1,6 +1,5 @@
 CXX = clang++
 CXXFLAGS = -Wall -g -std=c++2a
-
 LDFLAGS = -lSDL2
 
 SOURCES = sim.cc app.cc

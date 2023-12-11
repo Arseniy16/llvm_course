@@ -1,13 +1,7 @@
 #include "sim.h"
 
-color_t dead = {0, 0, 255}; //blue - dead
-color_t alive = {255, 0, 0}; //red - alive
-
-static unsigned data_prev[SIM_DISPLAY_MEM_ADDR];
-static unsigned data_new[SIM_DISPLAY_MEM_ADDR];
-
-static unsigned *prev_gen = data_prev;
-static unsigned *next_gen = data_new;
+const color_t dead = {0, 0, 255}; //blue - dead
+const color_t alive = {255, 0, 0}; //red - alive
 
 /* set pixel for data */
 void simSetPixel(unsigned x, unsigned y, color_t color, unsigned *data)
@@ -21,7 +15,7 @@ void simSetPixel(unsigned x, unsigned y, color_t color, unsigned *data)
 }
 
 /* init starting parameters */
-void initGame()
+void initGame(unsigned *prev_gen, unsigned *next_gen)
 {    
     for (unsigned x = 0; x < SIM_X_SIZE; x++)
     {    
@@ -69,7 +63,7 @@ int isSame(color_t model, color_t test)
 }
 
 /* get alive neighbours for the particular pixel */
-int getAliveNeighbours(dir_t neighbour)
+int getAliveNeighbours(unsigned *prev_gen, unsigned *next_gen, dir_t neighbour)
 {
     unsigned count = 0;
 
@@ -103,7 +97,7 @@ int getAliveNeighbours(dir_t neighbour)
 }
 
 /* update the game scene */
-void gameUpdate()
+void gameUpdate(unsigned *prev_gen, unsigned *next_gen)
 {
     dir_t neighbour;
     unsigned num_alive_neighbours = 0;
@@ -125,7 +119,7 @@ void gameUpdate()
 
             color_t center = {prev_gen[neighbour.center], prev_gen[neighbour.center + 1], prev_gen[neighbour.center + 2]};
 
-            num_alive_neighbours = getAliveNeighbours(neighbour);
+            num_alive_neighbours = getAliveNeighbours(prev_gen, next_gen, neighbour);
             
             // printf("num_alive_neighbours: %d\n", num_alive_neighbours);
 
@@ -159,7 +153,7 @@ void swapData(unsigned **prev, unsigned **next)
     return;
 }
 
-void drawGame()
+void drawGame(unsigned *prev_gen, unsigned *next_gen)
 {
     unsigned pos = 0;
 
@@ -176,12 +170,18 @@ void drawGame()
 
 void app()
 {
-    initGame();
+    unsigned data_prev[SIM_DISPLAY_MEM_ADDR];
+    unsigned data_new[SIM_DISPLAY_MEM_ADDR];
 
+    unsigned *prev_gen = data_prev;
+    unsigned *next_gen = data_new;
+
+    initGame(prev_gen, next_gen);
+    
     while(1)
-    {
-        gameUpdate();
-        drawGame();
+    {   
+        gameUpdate(prev_gen, next_gen);
+        drawGame(prev_gen, next_gen);
         simFlush();
         swapData(&prev_gen, &next_gen);
     }

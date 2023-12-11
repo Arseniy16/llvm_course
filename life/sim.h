@@ -2,11 +2,11 @@
 #define _SIM_H_
 
 // #define REPEAT_SIZE 1024
-#define COUNT_INITIAL_CELLS 20000
-#define FRAME_TICKS 70
+#define COUNT_INITIAL_CELLS 10000
+#define FRAME_TICKS 60
 
-#define SIM_X_SIZE 800
-#define SIM_Y_SIZE 600
+#define SIM_X_SIZE 200 //400
+#define SIM_Y_SIZE 150 //300
 #define SIM_DISPLAY_MEM_ADDR SIM_X_SIZE * SIM_Y_SIZE * 3
 
 typedef struct direction
